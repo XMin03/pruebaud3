@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="fragments/general.html :: style">
+    <title>Peliculas</title>
+</head>
+<body>
+
+<h1>Peliculas</h1>
+<p th:text="'Hay '+${listaPeliculas.size()+' peliculas'}"></p>
+<p th:text="'Tot horrar: '+${totHorror}"></p>
+<table>
+    <tr th:each="mapa:${map}">
+        <td th:text="${mapa.key}">id_pelicula</td>
+        <td th:text="${mapa.value}">titulo</td>
+    </tr>
+</table>
+<p th:each="peliculas:${listaPeliculas}"></p>
+
+map
+<!-- Table CRUD    -->
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Titulo</th>
+        <th>Descripcion</th>
+        <th>Fecha Lanzamiento</th>
+        <th>Idioma</th>
+        <th>Categoria</th>
+        <th>Duracion Alquiler</th>
+        <th>Rental Rate</th>
+        <th>Duracion</th>
+        <th>Replacement Cost</th>
+        <th>Ultima Actualizacion</th>
+        <!-- create    -->
+        <th>
+            <form th:action="@{/peliculas/crear}">
+                <input class="btn btn-primary" type="submit" th:value="Crear">
+            </form>
+        </th>
+    </tr>
+    <!-- listAll    -->
+    <tr th:each="peliculas:${listaPeliculas}">
+        <td th:text="${peliculas.id_pelicula}">id_pelicula</td>
+        <td th:text="${peliculas.titulo}">titulo</td>
+        <td th:text="${peliculas.descripcion}">descripcion</td>
+        <td th:text="${peliculas.fecha_lanzamiento}">fecha_lanzamiento</td>
+        <td th:text="${peliculas.idioma.nombre}">nombre idioma</td>
+        <td th:text="${peliculas.categoria.nombre}">nombre categoria</td>
+        <td th:text="${peliculas.ducarion_alquiler}">ducarion_alquiler</td>
+        <td th:text="${peliculas.rental_rate}">rental_rate</td>
+        <td th:text="${peliculas.duracion}">duracion</td>
+        <td th:text="${peliculas.replacement_cost}">replacement_cost</td>
+        <td th:text="${peliculas.ultima_actualizacion}">ultima_actualizacion</td>
+        <!-- actions    -->
+        <td>
+            <!-- editar    -->
+            <form th:action="@{/peliculas/editar/}+${peliculas.id_pelicula}" style="display: inline;">
+                <input class="btn btn-warning" type="submit" value="Editar" />
+            </form>
+            <!-- borrar    -->
+            <th:block th:replace="fragments/general::boton('peliculas'+${peliculas.id_pelicula},@{/peliculass/borrar/__${peliculas.id_pelicula}__})"></th:block>
+        </td>
+    </tr>
+</table>
+<script src="/js/borrar.js"></script>
+</body>
+</html>
